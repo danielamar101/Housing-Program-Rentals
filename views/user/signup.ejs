@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<h1>Register</h1>
+<form action="/signup" method="post">
+<div>
+    <label for="email">Email</label>
+    <input
+      type="email"
+      name="email"
+      placeholder="Enter Email"
+      value="<%= typeof email != 'undefined' ? email : '' %>"
+    />
+</div>
+  <div >
+    <label for="password">Password</label>
+    <input
+      type="password"
+      name="password"
+      placeholder="Create Password"
+      value="<%= typeof password != 'undefined' ? password : '' %>"
+    />
+  </div>
+  <div >
+    <label for="passwerd">Confirm Password</label>
+    <input
+      type="passwerd"
+      name="passwerd"
+      placeholder="Confirm Password"
+      value="<%= typeof passwerd != 'undefined' ? passwerd : '' %>"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary btn-block">
+    Register
+  </button>
+</form>
+<p >Have An Account? <a href="/users/login">Login</a></p>
