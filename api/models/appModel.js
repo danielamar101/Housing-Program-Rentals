@@ -21,9 +21,7 @@ var listingSchema = new Schema({
     ask_price: {type: String, required: true},
     amenities: {type: String, required: false},
     //path to images of listing
-    images: [{
-        type: String
-    }]
+    images: [{type: String, required: false}]
 });
 
 var inviteSchema = new Schema({
