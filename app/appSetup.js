@@ -23,11 +23,9 @@ module.exports = function(app){
     })
 
 
-    app.use(session({
-        secret: 'secret',
-        resave: true,
-        saveUninitialized: true
-    }));
+    app.use(session({secret:'Keep it secret'
+    ,name:'uniqueSessionID'
+    ,saveUninitialized:false}));
 
     //Body Parser
     app.use(bodyParser.urlencoded({ extended: true }));

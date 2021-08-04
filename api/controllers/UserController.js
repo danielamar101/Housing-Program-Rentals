@@ -3,16 +3,14 @@ var mongoose = require("mongoose");
 var User = mongoose.model("Users");
 var Invite = mongoose.model("Invite");
 var bcrypt = require("bcrypt");
-var path = require("path");
-const { send } = require("process");
-const session = require('express-session');
 
+
+
+//Debug - remove later
 exports.list_all_users = function (req, res) {
   User.find({}, function (err, user) {
     if (err) res.send(err);
     console.log("Error");
-
-    //res.json(user);
 
     res.render("test/output_users", {
       allUsers: user,
@@ -20,64 +18,63 @@ exports.list_all_users = function (req, res) {
   });
 };
 
-exports.create_invite_code = function (req, res) {};
+exports.view_logout = function(req,res){
 
-exports.view_login = function (req, res) {
-  if(req.session.loggedIn){
-    res.render("admin/portal");
-  }else{
-  res.render("user/login");
-  }
-};
+  res.render("user/logout",{
+    da_user: "Penis"
+  });
 
-exports.auth = function (req, res) {
-  var aUsername = req.body.username;
-  var aPassword = req.body.password;
+}
 
-  if (aUsername && aPassword) {
-    User.findOne(
-      { email: aUsername },
-      "email password",
-      function (error, results, fields) {
-        if (results != undefined && Object.keys(results).length > 0) {
-          bcrypt.compare(aPassword, results.password, function (err, result) {
-            if (result) {
-              req.session.loggedin = true;
-              req.session.username = aUsername;
-              console.log("Valid user. Logging in.");
-              res.render("admin/portal", {
-                user: req.session.username,
-                loggedIn: req.session.loggedIn,
-              });
-            } else {
-              res.send("Incorrect password");
-              console.log("Incorrect password");
-            }
-          });
-        } else {
-          res.send("Error: Incorrect Username and/or password");
-          console.log("Invalid credentials.");
-        }
-      }
-    );
-  } else {
-    res.send("Please enter Username and Password!");
-    rees.end();
-  }
-};
+exports.logout = function(req,res){
 
+
+  req.session.destroy((err)=>{
+    console.log("Error destroying session.");
+    throw new Error("Cant destroy session");
+  });
+  console.log(req.session);
+  res.redirect("/view_logout");
+}
+//GET - See signup page
 exports.view_signup = function (req, res) {
   res.render("user/signup");
 };
 
+//GET - See login page
+exports.view_login = function (req, res) {
+
+  res.render("user/login");
+  
+};
+exports.view_portal = function (req, res){
+
+  res.render("admin/portal");
+}
+// function findUser({aUsername, aPassword}, queryString, callback){
+
+// }
+//POST - after authenticating
+exports.portal = function (req, res) {
+  req.session.loggedIn = true;
+  req.session.username = res.locals.username;
+  console.log(req.session);
+  res.redirect('/view_portal');
+};
+
+//POST - Signup code
 exports.signup = function (req, res) {
-  console.log("routed to signup page.");
+  console.log("routed to signup post");
   console.log(`Email: ${req.body.email}`);
 
-  var canProceed = false;
+  const anEmail = req.body.email;
+  const aPassword = req.body.password;
+  const aPasswerd = req.body.passwerd;
+  const aCode = req.body.invite_code;
 
+  //Query invite collection to see if invite key is legit
   Invite.findOne(
-    { invite_code: req.body.invite_code },
+    { invite_code: aCode },
     "invite_code",
     function (err, results) {
       if (err) {
@@ -87,42 +84,39 @@ exports.signup = function (req, res) {
 
       //This means there is a correct invite code
       if (results != undefined && Object.keys(results).length > 0) {
-        var user = new User({
-          email: req.body.email,
-          password: req.body.password,
-          passwerd: req.body.passwerd,
-        });
 
-        if (user.password != user.passwerd) {
+        if (aPassword != aPasswerd) {
           console.log("Passwords don't match!");
           res.redirect("user/signup");
           res.end();
-        } else {
-          console.log("passwords are the same");
         }
 
-        bcrypt.hash(user.password, 10, function (err, hash) {
+        //Encrypts password
+        bcrypt.hash(aPassword, 10, function (err, hash) {
           if (err) {
             return next(err);
           }
-          user.password = hash;
-          user.passwerd = hash;
+
+          var user = new User({
+            email: anEmail,
+            password: hash,
+          });
+
           user
             .save()
             .then(() => {
               console.log("Successfully created a new User");
               console.log("Routing to success page");
 
+              //TODO: Route to admin portal ?
               res.render("user/success", {
                 name: "daniel",
                 da_user: user.email,
               });
             })
             .catch((error) => {
-              // you can send an error code here
               console.log("Error creating new user", error);
-              res.send(err);
-              res.end();
+              res.render('user/error');
             });
         });
       } else {
@@ -132,25 +126,7 @@ exports.signup = function (req, res) {
   );
 };
 
-exports.read_a_user = function (req, res) {
-  User.findById(req.params.userId, function (err, user) {
-    if (err) res.send(err);
-    res.json(user);
-  });
-};
-
-exports.update_a_user = function (req, res) {
-  User.findOneAndUpdate(
-    { _id: req.params.userId },
-    req.body,
-    { new: true },
-    function (err, user) {
-      if (err) res.send(err);
-      res.json(user);
-    }
-  );
-};
-
+//Implement later, may be useful
 exports.delete_a_user = function (req, res) {
   User.remove(
     {
@@ -161,11 +137,4 @@ exports.delete_a_user = function (req, res) {
       res.json({ message: "User successfully deleted" });
     }
   );
-};
-
-exports.view_admin_portal = function (req, res) {
-  res.render("admin/portal", {
-    user: req.session.username,
-    loggedIn: req.session.loggedIn,
-  });
 };
