@@ -59,45 +59,64 @@ function convertImageSourceMultiple(listing) {
 
 //GET - view listings page
 exports.showListings = function (req, res) {
+  
+  renderPageWithAllListings(req,res,"listing/listings",['AllListings','id_list']);
+};
+
+// Param pageToRender
+// Param args: names of properties that will be sent
+// Param  actionType: edit/listing/delete 
+function renderPageWithAllListings(req,res,pageToRender,args,actionType){
   //Query listing database for all listings
   //TODO: Add filter
-  Listing.find({}, function (err, listing) {
+  return Listing.find({}, function (err, listing) {
     if (err) res.send(err);
 
     let id_list = [];
-
     //Changes src element to correct one
     listing = convertImageSourceMultiple(listing);
 
     listing.forEach((aListing) => {
-      id_list.push(`href=listing/${aListing.id}`);
+      if(actionType === 'listing'){
+        id_list.push(`href=listing/${aListing.id}`);
+      } else if(actionType === 'delete'){
+        id_list.push(`href=delete/${aListing.id}`);
+      } else{
+        id_list.push(`href=listing/${aListing.id}`);
+      }
     });
 
-    res.render("listing/listings", {
-      AllListings: listing,
-      id_list: id_list,
+    res.render(pageToRender, {
+      [args[0]] : listing,
+      [args[1]] : id_list
+
     });
   });
-};
+
+}
 
 exports.show_a_listing = function (req, res) {
   Listing.findOne({ _id: req.params.id }, function (err, listing) {
     if (err) {
       console.log("Error processing listing.");
-      res.render("listing/error");
-      res.end();
+      //res.redirect("/listings");
     }
-    if (listing !== null || listing !== undefined) {
-      console.log(`Found listing: \n${listing}`);
+    if (listing !== null && listing !== undefined) {
+
+      for (let i = 0; i < listing.images.length; i++) {
+        //TODO: Find a better method than this lol
+        listing.images[i] = `src=../../${listing.images[i]}`;
+      }
+      console.log(`Sending listing with:  \n${listing}`);
 
 
-      res.render("listing/a_listing", {
-        a_listing: listing,
+      res.render("listing/listing", {
+        a_listing: listing
       });
+      res.end();
     } else {
       console.log("Could not find listing.");
-      res.render("listing/error");
-      res.end();
+      res.redirect("/listings");
     }
   });
 };
@@ -178,4 +197,21 @@ exports.createListing = function (req, res) {
 
       res.render("admin/createListing");
     });
+};
+
+//GET - See login page
+exports.view_logout = function (req, res) {
+
+  res.render("user/logout");
+  
+};
+
+exports.view_edit_listings = function (req, res) {
+
+  renderPageWithAllListings(req,res,"listing/edit_listings",['AllListings','id_list']);
+
+};
+exports.view_delete_listings = function (req, res) {
+  renderPageWithAllListings(req,res,"listing/delete_listings",['AllListings','id_list']);// res.render("listing/delete_view"{
+
 };

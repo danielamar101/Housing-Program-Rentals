@@ -31,7 +31,7 @@ exports.logout = function(req,res){
 
   req.session.destroy((err)=>{
     console.log("Error destroying session.");
-    throw new Error("Cant destroy session");
+    res.sendStatus(501);
   });
   console.log(req.session);
   res.redirect("/view_logout");
@@ -40,6 +40,8 @@ exports.logout = function(req,res){
 exports.view_signup = function (req, res) {
   res.render("user/signup");
 };
+
+
 
 //GET - See login page
 exports.view_login = function (req, res) {
