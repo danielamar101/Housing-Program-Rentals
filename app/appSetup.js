@@ -25,7 +25,7 @@ module.exports = function(app){
 
     app.use(session({secret:'Keep it secret'
     ,name:'uniqueSessionID'
-    ,saveUninitialized:false}));
+    ,saveUninitialized:true}));
 
     //Body Parser
     app.use(bodyParser.urlencoded({ extended: true }));

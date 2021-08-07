@@ -4,26 +4,11 @@ var Listing = mongoose.model("Listings");
 var path = require("path");
 const fs = require("fs");
 
-/////////////Variables//////////////////
-var mascots = [
-  { name: "Sammy", organization: "DigitalOcean", birth_year: 2012 },
-  { name: "Tux", organization: "Linux", birth_year: 1996 },
-  { name: "Moby Dock", organization: "Docker", birth_year: 2013 },
-];
-
-var tagline =
-  "No programming concept is complete without a cute animal mascot.";
-
-///////////////////////////////////////////
-
 //GET - view home page
 exports.showHome = function (req, res) {
   console.log("Routed to home page.");
 
-  res.render("pages/index", {
-    mascots: mascots,
-    tagline: tagline,
-  });
+  res.render("pages/index");
 };
 
 //GET - view about page
@@ -35,13 +20,13 @@ exports.showAbout = function (req, res) {
 //GET - view contact us page
 exports.showContactUs = function (req, res) {
   console.log("Routed to contact us page.");
-  res.render("pages/contactus");
+  res.render("listing/contactus");
 };
 
 //GET - View create listing page
 exports.showCreateListing = function (req, res) {
   console.log("Routed to createListing page.");
-  res.render("admin/createListing");
+  res.render("listing/createListing");
 };
 
 function convertImageSourceMultiple(listing) {
@@ -155,7 +140,7 @@ exports.deleteAllListings = function (req, res) {
 //POST - Create listing code
 exports.createListing = function (req, res) {
   console.log("Routed to actual listing creation");
-
+  console.log(req);
   //List of files
   var files = req.files;
 
