@@ -44,19 +44,19 @@
           </div>
           <div class="u-custom-menu u-nav-container">
             <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/home" style="padding: 32px 52px;">Home</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/listings" style="padding: 32px 52px;">Rentals</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/aboutus" style="padding: 32px 52px;">About Us</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" style="padding: 32px 52px;">Contact Us</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/listings" style="padding: 32px 52px;">Listings</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/about" style="padding: 32px 52px;">About Us</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/contact" style="padding: 32px 52px;">Contact Us</a>
 </li></ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
               <div class="u-sidenav-overflow">
                 <div class="u-menu-close"></div>
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Home.html" style="padding: 32px 52px;">Home</a>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/" style="padding: 32px 52px;">Home</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/listings" style="padding: 32px 52px;">Rentals</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/aboutus" style="padding: 32px 52px;">About Us</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href='/contactus' style="padding: 32px 52px;">Contact Us</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/about" style="padding: 32px 52px;">About Us</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href='/contact' style="padding: 32px 52px;">Contact Us</a>
 </li></ul>
               </div>
             </div>
@@ -69,7 +69,7 @@
         <h4 class="u-custom-font u-text u-text-1">Welcome <%= user %>&nbsp;</h4>
         <a href="/create_listing" class="u-border-2 u-border-black u-btn u-button-style u-hover-black u-none u-text-black u-text-hover-white u-btn-1">Create listing</a>
         <a href="/logout" class="u-border-2 u-border-black u-btn u-button-style u-hover-black u-none u-text-black u-text-hover-white u-btn-2">Logout</a>
-        <a href="/edit_listings" class="u-border-2 u-border-black u-btn u-button-style u-hover-black u-none u-text-black u-text-hover-white u-btn-3">Edit listing</a>
+        <a href="" onclick="alertNatalie()" class="u-border-2 u-border-black u-btn u-button-style u-hover-black u-none u-text-black u-text-hover-white u-btn-3">Edit listing</a>
         <a href="/delete_listings" class="u-border-2 u-border-black u-btn u-button-style u-hover-black u-none u-text-black u-text-hover-white u-btn-4">delete listing</a>
       </div>
     </section>
@@ -82,4 +82,10 @@
 
     </section>
   </body>
+
+  <script>
+    function alertNatalie(){
+      alert("sorry this is broken, just create a new listing and delete the old one. If you think this would be useful I will implement. LMK");
+    }
+  </script>
 </html>

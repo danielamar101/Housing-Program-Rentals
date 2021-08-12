@@ -44,21 +44,20 @@
             </a>
           </div>
           <div class="u-custom-menu u-nav-container">
-            <ul class="u-custom-font u-font-montserrat u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-custom-color-3 u-text-hover-palette-2-base" href="Home.html" style="padding: 32px 34px;">home</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-custom-color-3 u-text-hover-palette-2-base" href="Rentals.html" style="padding: 32px 34px;">listings</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-custom-color-3 u-text-hover-palette-2-base" href="About-Us.html" style="padding: 32px 34px;">aboutus</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-custom-color-3 u-text-hover-palette-2-base" href="contactus.html" style="padding: 32px 34px;">Contact Us</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-custom-color-3 u-text-hover-palette-2-base" href="Page-1.html" style="padding: 32px 34px;">listing</a>
+            <ul class="u-custom-font u-font-montserrat u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-custom-color-3 u-text-hover-palette-2-base" href="/" style="padding: 32px 34px;">Home</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-custom-color-3 u-text-hover-palette-2-base" href="/listings" style="padding: 32px 34px;">Listings</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-custom-color-3 u-text-hover-palette-2-base" href="/about" style="padding: 32px 34px;">About Us</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-custom-color-3 u-text-hover-palette-2-base" href="/contact" style="padding: 32px 34px;">Contact Us</a>
 </li></ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
               <div class="u-sidenav-overflow">
                 <div class="u-menu-close"></div>
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Home.html" style="padding: 32px 34px;">home</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Rentals.html" style="padding: 32px 34px;">listings</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="About-Us.html" style="padding: 32px 34px;">aboutus</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="contactus.html" style="padding: 32px 34px;">Contact Us</a>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/" style="padding: 32px 34px;">Home</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/listings" style="padding: 32px 34px;">Listings</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/about" style="padding: 32px 34px;">About Us</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/contact" style="padding: 32px 34px;">Contact Us</a>
 </li></ul>
               </div>
             </div>
@@ -86,23 +85,23 @@
           <svg class="u-svg-content" viewBox="0 0 160 160" x="0px" y="0px" id="svg-e7f5"><path d="M160,0v160H0V0H160z"></path></svg>
         </div>
         <div class="u-expanded-width-xs u-form u-form-1">
-          <form action="#" method="POST" class="u-clearfix u-form-spacing-27 u-form-vertical u-inner-form" style="padding: 50px;" source="custom" name="form">
+          <form onsubmit='reloadPage()' action="/contact" method="POST" class="u-clearfix u-form-spacing-27 u-form-vertical u-inner-form" style="padding: 50px;" source="custom" name="form">
             <div class="u-form-group u-form-name u-form-partition-factor-2">
-              <label for="name-a791" class="u-form-control-hidden u-label">Name</label>
+              <label for="name-a791" id='name' class="u-form-control-hidden u-label">Name</label>
               <input type="text" placeholder="Name" id="name-a791" name="name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
             </div>
             <div class="u-form-group u-form-partition-factor-2 u-form-phone u-form-group-2">
-              <label for="phone-b178" class="u-form-control-hidden u-label">Phone</label>
+              <label for="phone-b178" id='phone' class="u-form-control-hidden u-label">Phone</label>
               <input type="tel" pattern="\+?\d{0,3}[\s\(\-]?([0-9]{2,3})[\s\)\-]?([\s\-]?)([0-9]{3})[\s\-]?([0-9]{2})[\s\-]?([0-9]{2})" id="phone-b178" name="phone" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" placeholder="Phone">
             </div>
             <div class="u-form-email u-form-group">
-              <label for="email-a791" class="u-form-control-hidden u-label">Email</label>
+              <label for="email-a791" id='email' class="u-form-control-hidden u-label">Email</label>
               <input type="email" placeholder="Email" id="email-a791" name="email" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
             </div>
             <div class="u-form-group u-form-select u-form-group-4">
               <label for="select-38ae" class="u-form-control-hidden u-label">Select</label>
               <div class="u-form-select-wrapper">
-                <select id="select-38ae" name="select" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
+                <select id="select-38ae" id='borough' name="select" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
                   <option value="Choose Borough">Choose Borough</option>
                   <option value="Queens">Queens</option>
                   <option value="Brooklyn">Brooklyn</option>
@@ -122,7 +121,7 @@
               <input type="text" placeholder="Household Compensation Size" id="text-a0d7" name="text-1" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
             </div>
             <div class="u-form-group u-form-message">
-              <label for="message-a791" class="u-form-control-hidden u-label">Message</label>
+              <label for="message-a791" id='msg' class="u-form-control-hidden u-label">Message</label>
               <textarea placeholder="Enter your message" rows="4" cols="50" id="message-a791" name="message" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required=""></textarea>
             </div>
             <div class="u-align-left u-form-group u-form-submit">
@@ -143,16 +142,14 @@
         <p class="u-small-text u-text u-text-variant u-text-2">VORO®&nbsp;is an Equal Opportunity Employer and supports the Fair Housing Act.</p>
         <p class="u-small-text u-text u-text-variant u-text-3">600 3rd Ave, New York, NY 10016 | 24 Great Neck Rd, Great Neck, NY 11021</p>
       </div></footer>
-    <section class="u-backlink u-clearfix u-grey-80">
-      <a class="u-link" href="https://nicepage.com/website-templates" target="_blank">
-        <span>Website Templates</span>
-      </a>
-      <p class="u-text">
-        <span>created with</span>
-      </p>
-      <a class="u-link" href="https://nicepage.com/" target="_blank">
-        <span>Website Builder Software</span>
-      </a>. 
-    </section>
+    
   </body>
+
+ <script>
+   function reloadPage(){
+     document.getElementById()
+     console.log("This hit");
+
+   }
+ </script>
 </html>

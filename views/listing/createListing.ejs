@@ -8,7 +8,6 @@
     <p><a href="/view_portal">Back</a></p>
     <h1 class="h1_tag">Create Listing</h1>
     <form
-      onsubmit="event.preventDefault(); validateForm();"
       enctype="multipart/form-data"
       action="/create_listing"
       method="POST"
@@ -24,12 +23,20 @@
       </div>
       <div class="form-element">
         <label for="borough">Borough</label>
-        <input
+        <select id="borough" name="borough">
+          <option value="Queens">Queens</option>
+          <option value="Bronx">Bronx</option>
+          <option value="Manhattan">Manhattan</option>
+          <option value="Brooklyn">Brooklyn</option>
+          <option value="Staten Island">Staten Island</option>
+        </select>
+        <!-- <input
           type="borough"
           name="borough"
           placeholder="Borough"
           value="<%= typeof borough != 'undefined' ? String(borough ): '' %>"
-        />
+          required
+        /> -->
       </div>
       <div class="form-element">
         <label for="zip">Zip</label>
@@ -38,6 +45,16 @@
           name="zip"
           placeholder="Zip"
           value="<%= typeof zip != 'undefined' ? String(zip) : '' %>"
+          required
+        />
+      </div>
+      <div class="form-element">
+        <label for="apt_num">Apt Num</label>
+        <input
+          type="apt_num"
+          name="apt_num"
+          placeholder="Bathroom"
+          value="<%= typeof apt_num != 'undefined' ? String(apt_num) : 'None' %>"
         />
       </div>
       <div class="form-element">
@@ -65,15 +82,6 @@
           name="type"
           placeholder="Type"
           value="<%= typeof type != 'undefined' ? String(type) : '' %>"
-        />
-      </div>
-      <div class="form-element">
-        <label for="apt_num">Apt Num</label>
-        <input
-          type="apt_num"
-          name="apt_num"
-          placeholder="Bathroom"
-          value="<%= typeof apt_num != 'undefined' ? String(apt_num) : '' %>"
         />
       </div>
       <div class="form-element">
@@ -147,6 +155,7 @@
 </html>
 
 <script>
+
   var loadFile = function (event) {
 
     if(event.target.files.length > 8){
@@ -174,14 +183,4 @@
     }
   };
 
-  // var validateMyForm = () => {
-  // if(event.target.files.length > 8){
-  //   alert("Maximum amount of pictures is 8");
-  //   window.history.back();
-  //   return false;
-  // }
-
-  alert("validations passed");
-  return true;
-  }
 </script>

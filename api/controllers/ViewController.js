@@ -3,6 +3,7 @@ var mongoose = require("mongoose");
 var Listing = mongoose.model("Listings");
 var path = require("path");
 const fs = require("fs");
+const nodemailer = require("nodemailer");
 
 //GET - view home page
 exports.showHome = function (req, res) {
@@ -20,8 +21,40 @@ exports.showAbout = function (req, res) {
 //GET - view contact us page
 exports.showContactUs = function (req, res) {
   console.log("Routed to contact us page.");
-  res.render("listing/contactus");
+  res.render("pages/contactus");
 };
+
+exports.sendContactRequest = async function(req,res){
+  console.log("Sending an email..");
+  let testAccount = await nodemailer.createTestAccount();
+
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: testAccount.user, // generated ethereal user
+      pass: testAccount.pass, // generated ethereal password
+    },
+  });
+
+  // send mail with defined transport object
+  let info = await transporter.sendMail({
+    from: '"Fred Foo 👻" <foo@example.com>', // sender address
+    to: "danielamarble123456@gmail.com", // list of receivers
+    subject: "Hello ✔", // Subject line
+    text: "Hello world?", // plain text body
+    html: "<b>Hello world?</b>", // html body
+  });
+
+  console.log("Message sent: %s", info.messageId);
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+
+}
+
 
 //GET - View create listing page
 exports.showCreateListing = function (req, res) {
@@ -45,7 +78,7 @@ function convertImageSourceMultiple(listing) {
 //GET - view listings page
 exports.showListings = function (req, res) {
   
-  renderPageWithAllListings(req,res,"listing/listings",['AllListings','id_list']);
+  renderPageWithAllListings(req,res,"listing/listings",['AllListings','id_list'],'listing');
 };
 
 // Param pageToRender
@@ -63,11 +96,11 @@ function renderPageWithAllListings(req,res,pageToRender,args,actionType){
 
     listing.forEach((aListing) => {
       if(actionType === 'listing'){
-        id_list.push(`href=listing/${aListing.id}`);
+        id_list.push(`href=/listing/${aListing.id}`);
       } else if(actionType === 'delete'){
-        id_list.push(`href=delete/${aListing.id}`);
+        id_list.push(`href=/delete/${aListing.id}`);
       } else{
-        id_list.push(`href=listing/${aListing.id}`);
+        id_list.push(`href=edit/${aListing.id}`);
       }
     });
 
@@ -83,8 +116,8 @@ function renderPageWithAllListings(req,res,pageToRender,args,actionType){
 exports.show_a_listing = function (req, res) {
   Listing.findOne({ _id: req.params.id }, function (err, listing) {
     if (err) {
-      console.log("Error processing listing.");
-      //res.redirect("/listings");
+      console.log("Error finding listing.");
+      res.redirect("/listings");
     }
     if (listing !== null && listing !== undefined) {
 
@@ -172,15 +205,12 @@ exports.createListing = function (req, res) {
     .then((data) => {
       console.log("Successfully created a new Listing");
 
-      res.render("listing/success", {
-        listing: listing.address,
-        image: image_dir_list,
-      });
+      res.redirect(`listing/${listing.id}`);
     })
     .catch((error) => {
-      console.log("Could not create a listing.");
+      console.log(`Could not create a listing: ${error}`);
 
-      res.render("admin/createListing");
+      res.render("listing/createError");
     });
 };
 
@@ -193,10 +223,20 @@ exports.view_logout = function (req, res) {
 
 exports.view_edit_listings = function (req, res) {
 
-  renderPageWithAllListings(req,res,"listing/edit_listings",['AllListings','id_list']);
+  renderPageWithAllListings(req,res,"listing/edit_listings",['AllListings','id_list'],'edit');
 
 };
 exports.view_delete_listings = function (req, res) {
-  renderPageWithAllListings(req,res,"listing/delete_listings",['AllListings','id_list']);// res.render("listing/delete_view"{
+  renderPageWithAllListings(req,res,"listing/delete_listings",['AllListings','id_list'],'delete');// res.render("listing/delete_view"{
 
 };
+
+exports.delete_listing = function(req,res){
+  Listing.deleteOne({ _id: req.params.id }).then(() =>{
+      console.log(`Deleted listing with id: ${req.params.id}`);
+      res.redirect('/view_portal');
+  }).catch((error) => {
+      console.log(`Error deleting listing:${error}`);
+  })
+
+}

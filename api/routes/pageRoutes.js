@@ -13,7 +13,7 @@ module.exports = function (app) {
   app.route("/listings").get(viewController.showListings);
   app.route("/listing/:id").get(viewController.show_a_listing);
 
-  app.route("/contact").get(viewController.showContactUs);
+  app.route("/contact").get(viewController.showContactUs).post(viewController.sendContactRequest);
   app.route("/about").get(viewController.showAbout);
 
   app.route("/view_portal").get(checkSignIn.checkSignIn, viewController.view_admin_portal);
@@ -24,6 +24,8 @@ module.exports = function (app) {
   app.route("/delete_all_listings").get(checkSignIn.checkSignIn, viewController.deleteAllListings);
 
   app.route("/delete_listings").get(checkSignIn.checkSignIn, viewController.view_delete_listings);
+
+  app.route("/delete/:id").get(checkSignIn.checkSignIn, viewController.delete_listing);
   app.route("/edit_listings").get(checkSignIn.checkSignIn,viewController.view_edit_listings);
   //Listing creation code
 

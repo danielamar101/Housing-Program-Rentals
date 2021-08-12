@@ -756,3 +756,32 @@
     margin-top: -821px;
   }
 }
+
+.u-footer{
+  position: relative;
+  margin-top: 180px;
+  /* negative value of footer height */
+  height: 180px;
+  clear: both;
+  overflow-y: visible;
+  height: 100%;
+}
+
+.listing_text{
+  color: #d02c30 !important;
+}
+
+.header-color{
+  background-color: black !important;
+}
+
+.color-white{
+  color: white !important;
+}
+.color-white:hover{
+  color: #d02c30 !important;
+}
+
+.bg-voro{
+  background-image: url("images/Black_texture.png");
+}
