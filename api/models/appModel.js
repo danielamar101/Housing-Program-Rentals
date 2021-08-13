@@ -7,6 +7,13 @@ var userSchema = new Schema({
     password: { type: String, required: true },
 });
 
+var username = 'tankmybank';
+var password = 'Illadelph12?';
+var hosts = 'iad2-c12-2.mongo.objectrocket.com:54917,iad2-c12-1.mongo.objectrocket.com:54917,iad2-c12-0.mongo.objectrocket.com:54917';
+var database = 'natsite-prod';
+var options = '?replicaSet=4db59e42f2474892959d444975be539e';
+var connectionString = 'mongodb://' + username + ':' + encodeURIComponent(password) + '@' + hosts + '/' + database + options;
+var connection = mongoose.createConnection(connectionString);
 
 var listingSchema = new Schema({
     address: {type: String, unique: true, required: true},
@@ -26,6 +33,6 @@ var inviteSchema = new Schema({
     invite_code: {type: String, required: true},
 });
 
-module.exports = mongoose.model('Users', userSchema);
-module.exports = mongoose.model('Listings',listingSchema);
-module.exports = mongoose.model('Invite',inviteSchema);
+module.exports = connection.model('Users', userSchema);
+module.exports = connection.model('Listings',listingSchema);
+module.exports = connection.model('Invite',inviteSchema);
