@@ -33,6 +33,14 @@ var inviteSchema = new Schema({
     invite_code: {type: String, required: true},
 });
 
-module.exports = connection.model('Users', userSchema);
-module.exports = connection.model('Listings',listingSchema);
-module.exports = connection.model('Invites',inviteSchema);
+const inviteModel = connection.model('Invites',inviteSchema);
+const userModel = connection.model('Users', userSchema).syncIndexes();
+const listingModel = connection.model('Listings',listingSchema);
+
+module.exports = inviteModel;
+module.exports = userModel;
+module.exports = listingModel;
+
+await  inviteModel.syncIndexes();
+await userModel.syncIndexes();
+await listingModel.syncIndexes();
