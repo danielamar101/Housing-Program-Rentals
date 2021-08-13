@@ -3,7 +3,8 @@ var express = require('express'),
   port = process.env.PORT || 3000,
   mongoose = require('mongoose'),
   path = require('path'),
-  setup = require('./app/appSetup');
+  setup = require('./app/appSetup')
+  const {userSchema, listingSchema, inviteSchema} = require('./api/models/appModel');
  
   
 
@@ -14,9 +15,10 @@ var hosts = 'iad2-c12-2.mongo.objectrocket.com:54917,iad2-c12-1.mongo.objectrock
 var database = 'natsite-prod';
 var options = '?replicaSet=4db59e42f2474892959d444975be539e';
 var connectionString = 'mongodb://' + username + ':' + encodeURIComponent(password) + '@' + hosts + '/' + database + options;
-console.log(connectionString);
+
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
+
 mongoose.connect(connectionString,(err,db) =>{
   if (db) {
     db.close();
