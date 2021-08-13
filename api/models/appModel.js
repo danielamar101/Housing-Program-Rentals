@@ -41,6 +41,6 @@ module.exports = inviteModel;
 module.exports = userModel;
 module.exports = listingModel;
 
-await  inviteModel.syncIndexes();
-await userModel.syncIndexes();
-await listingModel.syncIndexes();
+await  inviteModel.ensureIndexes();
+await userModel.ensureIndexes();
+await listingModel.ensureIndexes();
