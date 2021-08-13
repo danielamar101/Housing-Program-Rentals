@@ -14,7 +14,6 @@ module.exports = function (app) {
   app.route("/listing/:id").get(viewController.show_a_listing);
 
   app.route("/contact").get(viewController.showContactUs).post(viewController.sendContactRequest);
-  app.route("/about").get(viewController.showAbout);
 
   app.route("/view_portal").get(checkSignIn.checkSignIn, viewController.view_admin_portal);
   //Non viewing routes
@@ -29,7 +28,7 @@ module.exports = function (app) {
   app.route("/edit_listings").get(checkSignIn.checkSignIn,viewController.view_edit_listings);
   //Listing creation code
 
-
+  app.route("/about").get(viewController.showAbout);
 
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
