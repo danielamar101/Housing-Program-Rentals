@@ -37,10 +37,12 @@ const inviteModel = connection.model('Invites',inviteSchema);
 const userModel = connection.model('Users', userSchema).syncIndexes();
 const listingModel = connection.model('Listings',listingSchema);
 
+inviteModel.createIndexes();
+userModel.createIndexes();
+listingModel.createIndexes();
+
 module.exports = inviteModel;
 module.exports = userModel;
 module.exports = listingModel;
 
-inviteModel.ensureIndexes();
-userModel.ensureIndexes();
-listingModel.ensureIndexes();
+
