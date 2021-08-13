@@ -37,6 +37,9 @@ const inviteModel = connection.model('Invites',inviteSchema);
 const userModel = connection.model('Users', userSchema);
 const listingModel = connection.model('Listings',listingSchema);
 
+inviteModel.ensureIndexes();
+userModel.ensureIndexes();
+listingModel.ensureIndexes();
 
 // const creatInvite = new inviteModel({ invite_code: 'natalie' });
 // creatInvite.save(function (err) {
