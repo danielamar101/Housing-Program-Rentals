@@ -42,9 +42,7 @@ creatInvite.save(function (err) {
   if (err) return handleError(err);
   
 });
-inviteModel.createIndexes();
-userModel.createIndexes();
-listingModel.createIndexes();
+
 
 module.exports = inviteModel;
 module.exports = userModel;
