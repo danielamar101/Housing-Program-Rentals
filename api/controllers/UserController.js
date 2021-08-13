@@ -1,7 +1,7 @@
 "use strict";
 var mongoose = require("mongoose");
 var User = mongoose.model("Users");
-var Invite = mongoose.model("Invite");
+var Invite = mongoose.model("Invites");
 var bcrypt = require("bcrypt");
 
 
