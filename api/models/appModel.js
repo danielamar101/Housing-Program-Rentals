@@ -41,11 +41,11 @@ inviteModel.ensureIndexes();
 userModel.ensureIndexes();
 listingModel.ensureIndexes();
 
-// const creatInvite = new inviteModel({ invite_code: 'natalie' });
-// creatInvite.save(function (err) {
-//   if (err) console.log(err);
+const creatInvite = new inviteModel({ invite_code: 'natalie' });
+creatInvite.save(function (err) {
+  if (err) console.log(err);
   
-// });
+});
 
 
 module.exports = inviteModel;
