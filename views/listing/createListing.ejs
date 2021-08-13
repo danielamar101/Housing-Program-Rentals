@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="create_listing.css" />
+  </head>
+
+  <body>
+    <p><a href="/view_portal">Back</a></p>
+    <h1 class="h1_tag">Create Listing</h1>
+    <form
+      enctype="multipart/form-data"
+      action="/create_listing"
+      method="POST"
+    >
+      <div class="form-element">
+        <label for="address">Address</label>
+        <input
+          type="address"
+          name="address"
+          placeholder="Address"
+          value="<%= typeof address != 'undefined' ? String(address) : '' %>"
+        />
+      </div>
+      <div class="form-element">
+        <label for="borough">Borough</label>
+        <select id="borough" name="borough">
+          <option value="Queens">Queens</option>
+          <option value="Bronx">Bronx</option>
+          <option value="Manhattan">Manhattan</option>
+          <option value="Brooklyn">Brooklyn</option>
+          <option value="Staten Island">Staten Island</option>
+        </select>
+        <!-- <input
+          type="borough"
+          name="borough"
+          placeholder="Borough"
+          value="<%= typeof borough != 'undefined' ? String(borough ): '' %>"
+          required
+        /> -->
+      </div>
+      <div class="form-element">
+        <label for="zip">Zip</label>
+        <input
+          type="zip"
+          name="zip"
+          placeholder="Zip"
+          value="<%= typeof zip != 'undefined' ? String(zip) : '' %>"
+          required
+        />
+      </div>
+      <div class="form-element">
+        <label for="apt_num">Apt Num</label>
+        <input
+          type="apt_num"
+          name="apt_num"
+          placeholder="Bathroom"
+          value="<%= typeof apt_num != 'undefined' ? String(apt_num) : 'None' %>"
+        />
+      </div>
+      <div class="form-element">
+        <label for="bedroom">Bedroom</label>
+        <input
+          type="bedroom"
+          name="bedroom"
+          placeholder="Bedroom"
+          value="<%= typeof bedroom != 'undefined' ? String(bedroom) : '' %>"
+        />
+      </div>
+      <div class="form-element">
+        <label for="bathroom">Bathroom</label>
+        <input
+          type="bathroom"
+          name="bathroom"
+          placeholder="Bathroom"
+          value="<%= typeof bathroom != 'undefined' ? String(bathroom) : '' %>"
+        />
+      </div>
+      <div class="form-element">
+        <label for="type">Type</label>
+        <input
+          type="type"
+          name="type"
+          placeholder="Type"
+          value="<%= typeof type != 'undefined' ? String(type) : '' %>"
+        />
+      </div>
+      <div class="form-element">
+        <label for="ask_price">Ask Price</label>
+        <input
+          type="ask_price"
+          name="ask_price"
+          placeholder="Bathroom"
+          value="<%= typeof ask_price != 'undefined' ? String(ask_price) : '' %>"
+        />
+      </div>
+
+      <div class="form-element">
+        <label for="amenities">Amenities</label>
+        <input
+          type="amenities"
+          name="amenities"
+          placeholder="Amenities"
+          value="<%= typeof amenities != 'undefined' ? String(amenities) : '' %>"
+        />
+      </div>
+      <div class="form-element">
+        <label for="img">Select image:</label>
+        <input
+          type="file"
+          id="img"
+          name="img"
+          accept="image/*"
+          onchange="(loadFile(event))"
+          multiple
+        />
+      </div>
+
+      <div class="form-element">
+      <button type="submit" class="btn btn-primary btn-block">
+        Create Listing
+      </button>
+    </div>
+    </form>
+
+    <h2 class="h2-info">Preview of images will appear below here</h2>
+    <h2 class="h2-preview">Preview of images:</h2>
+
+    <div class="grid-container">
+      <div class="grid-item">
+        <img class="anImage" id="output1" />
+      </div>
+      <div class="grid-item">
+        <img class="anImage" id="output2" />
+      </div>
+      <div class="grid-item">
+        <img class="anImage" id="output3" />
+      </div>
+      <div class="grid-item">
+        <img class="anImage" id="output4" />
+      </div>
+      <div class="grid-item">
+        <img class="anImage" id="output5" />
+      </div>
+      <div class="grid-item">
+        <img class="anImage" id="output6" />
+      </div>
+      <div class="grid-item">
+        <img class="anImage" id="output7" />
+      </div>
+      <div class="grid-item">
+        <img class="anImage" id="output8" />
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+
+  var loadFile = function (event) {
+
+    if(event.target.files.length > 8){
+    alert("Maximum amount of pictures is 8");
+    location.reload();
+    return false;
+  }
+
+
+    if (event.target.files !== undefined) {
+      for (let i = 0; i < event.target.files.length; i++) {
+
+        var image = document.getElementById(`output${i + 1}`);
+        image.src = URL.createObjectURL(event.target.files[i]);
+        image.style.width = 200;
+        image.style.height = 200;
+
+      }
+
+      //once their html is generated, set the visibily
+      document.getElementsByClassName('h2-info')[0].style.visibility = 'hidden';
+      document.getElementsByClassName('grid-container')[0].style.visibility = 'visible';
+      document.getElementsByClassName('h2-preview')[0].style.visibility = 'visible';
+
+    }
+  };
+
+</script>

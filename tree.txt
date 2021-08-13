@@ -1,0 +1,53 @@
+.
+├── api
+│   ├── controllers
+│   │   ├── UserController.js   <---- Controls user data/views
+│   │   └── ViewController.js
+│   ├── models
+│   │   └── appModel.js  <--- Database model
+│   └── routes
+│       ├── centralRoutes.js <--- route delegator
+│       ├── homeRoutes.js <---- home routes
+│       └── userRoutes.js <----user routes
+├── app
+│   └── appSetup.js <--- sets up app.use and app.set stuff
+├── design_doc.md
+├── package-lock.json
+├── package.json
+├── public
+│   ├── About-Us.css
+│   ├── Home.css
+│   ├── Rentals.css
+│   ├── images
+│   │   ├── pic.jpg
+│   │   ├── pic2.jpg
+│   │   └── default-logo.png
+│   ├── jquery.js
+│   ├── nicepage.css
+│   ├── nicepage.js
+│   └── test.css
+├── server.js <-- entry point
+├── tree.txt
+├── tree.xml
+└── views
+    ├── About-Us.html
+    ├── Landlords.html
+    ├── Rentals.html
+    ├── error.html
+    ├── home.html
+    ├── pages
+    │   ├── about.ejs
+    │   ├── index.ejs
+    │   └── testListing.ejs
+    ├── partials
+    │   ├── footer.ejs
+    │   ├── head.ejs
+    │   └── header.ejs
+    └── user
+        ├── login.ejs
+        ├── signup.ejs
+        └── success.ejs
+
+11 directories, 37 files
+
+
