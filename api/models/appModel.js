@@ -34,14 +34,15 @@ var inviteSchema = new Schema({
 });
 
 const inviteModel = connection.model('Invites',inviteSchema);
-const userModel = connection.model('Users', userSchema).syncIndexes();
+const userModel = connection.model('Users', userSchema);
 const listingModel = connection.model('Listings',listingSchema);
 
-const creatInvite = new inviteModel({ invite_code: 'natalie' });
-creatInvite.save(function (err) {
-  if (err) console.log(err);
+
+// const creatInvite = new inviteModel({ invite_code: 'natalie' });
+// creatInvite.save(function (err) {
+//   if (err) console.log(err);
   
-});
+// });
 
 
 module.exports = inviteModel;
