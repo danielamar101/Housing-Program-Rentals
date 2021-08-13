@@ -35,4 +35,4 @@ var inviteSchema = new Schema({
 
 module.exports = connection.model('Users', userSchema);
 module.exports = connection.model('Listings',listingSchema);
-module.exports = connection.model('Invite',inviteSchema);
+module.exports = connection.model('Invites',inviteSchema);
