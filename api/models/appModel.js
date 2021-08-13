@@ -39,7 +39,7 @@ const listingModel = connection.model('Listings',listingSchema);
 
 const creatInvite = new inviteModel({ invite_code: 'natalie' });
 creatInvite.save(function (err) {
-  if (err) return handleError(err);
+  if (err) console.log(err);
   
 });
 
