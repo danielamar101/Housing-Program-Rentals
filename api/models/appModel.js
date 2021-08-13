@@ -41,6 +41,6 @@ module.exports = inviteModel;
 module.exports = userModel;
 module.exports = listingModel;
 
-await  inviteModel.ensureIndexes();
-await userModel.ensureIndexes();
-await listingModel.ensureIndexes();
+inviteModel.ensureIndexes();
+userModel.ensureIndexes();
+listingModel.ensureIndexes();
