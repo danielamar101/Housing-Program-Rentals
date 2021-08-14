@@ -1,6 +1,6 @@
 
 var express = require('express'),
-  port = process.env.PORT || 3000,
+  //port = process.env.PORT || 3000,
   mongoose = require('mongoose'),
   path = require('path');
 
@@ -22,11 +22,12 @@ mongoose.connect(connectionString,(err,db) =>{
   if (err) {
     console.log('Error: ', err);
   } else {
-    require('./api/models/appModel')
     console.log("Connection to database successful." + mongoose)
   }
   }); 
 
+
+require('./api/models/appModel');
 
 var app = express();
 app.use(express.static('public'));
@@ -46,8 +47,8 @@ app.use(function(req, res) {
   console.log('Cannot find page.')
 });
 
-//Start server
-app.listen(port, () => {
-    console.log("Server is listening on port " + port);
-});
+// //Start server
+// app.listen(port, () => {
+//     console.log("Server is listening on port " + port);
+// });
 
