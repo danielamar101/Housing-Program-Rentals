@@ -1,6 +1,5 @@
 
 var express = require('express'),
-  app = express(),
   port = process.env.PORT || 3000,
   mongoose = require('mongoose'),
   path = require('path');
@@ -29,11 +28,11 @@ mongoose.connect(connectionString,(err,db) =>{
   }); 
 
 
-
+var app = express();
 app.use(express.static('public'));
 
 //Setup default values
-setup = require('./app/appSetup');
+var setup = require('./app/appSetup');
 setup(app)
 
 //Route importing, calls central router which delegates to granular route files
