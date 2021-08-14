@@ -1,4 +1,4 @@
-require('./api/models/appModel')
+
 var express = require('express'),
   app = express(),
   port = process.env.PORT || 3000,
@@ -24,6 +24,7 @@ mongoose.connect(connectionString,(err,db) =>{
   if (err) {
     console.log('Error: ', err);
   } else {
+    require('./api/models/appModel')
     console.log("Connection to database successful." + mongoose)
   }
   }); 
