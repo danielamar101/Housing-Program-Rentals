@@ -1,7 +1,7 @@
 /*Middleeware that authenticates a user before redirecting to a restricted
 page */
 var mongoose = require("mongoose");
-var User = mongoose.model("Users");
+var User = mongoose.model("User");
 var bcrypt = require("bcrypt");
 var session = require("express-session");
 
