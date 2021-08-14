@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 console.log('Mongoose: ' + mongoose);
+console.log(mongoose);
 
 const UserSchema = new Schema({
     email: { type: String, unique: true, required: true },
