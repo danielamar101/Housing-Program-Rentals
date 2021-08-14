@@ -1,9 +1,9 @@
-
+require('../api/models/appModel')
 const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const expressEjsLayout = require('express-ejs-layouts')
-const User = require('../api/models/appModel'); //created model loading here
+
 const session = require('express-session');
 
 module.exports = function(app){
