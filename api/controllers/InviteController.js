@@ -1,6 +1,6 @@
 "use strict";
 var mongoose = require("mongoose");
-var Invite = mongoose.model("Invites");
+var Invite = mongoose.model("Invite");
 
 //POST - at least should be, isnt currently
 exports.create_invite_code = function (req, res) {

@@ -3,21 +3,19 @@ var express = require('express'),
   port = process.env.PORT || 3000,
   mongoose = require('mongoose'),
   path = require('path'),
-  setup = require('./app/appSetup')
-  const {userSchema, listingSchema, inviteSchema} = require('./api/models/appModel');
+  setup = require('./app/appSetup');
  
   
 
-
+ 
 var username = 'tankmybank';
 var password = 'Illadelph12?';
-var hosts = 'iad2-c12-2.mongo.objectrocket.com:54917,iad2-c12-1.mongo.objectrocket.com:54917,iad2-c12-0.mongo.objectrocket.com:54917';
+var hosts = 'iad2-c13-0.mongo.objectrocket.com:54914,iad2-c13-1.mongo.objectrocket.com:54914,iad2-c13-2.mongo.objectrocket.com:54914';
 var database = 'natsite-prod';
-var options = '?replicaSet=4db59e42f2474892959d444975be539e';
-var connectionString = 'mongodb://' + username + ':' + encodeURIComponent(password) + '@' + hosts + '/' + database + options;
+var options = '?replicaSet=3e22ce01a19f48e981e876585c12fe2f&ssl=true';
+//let options = {useMongoClient:true, autoIndex:false, autoReconnect:true, promiseLibrary:global.Promise};
 
-// mongoose instance connection url connection
-mongoose.Promise = global.Promise;
+var connectionString = 'mongodb://' + username + ':' + encodeURIComponent(password) + '@' + hosts + '/' + database + options;
 
 mongoose.connect(connectionString,(err,db) =>{
   if (db) {
@@ -26,9 +24,10 @@ mongoose.connect(connectionString,(err,db) =>{
   if (err) {
     console.log('Error: ', err);
   } else {
-    console.log("Connection to database successful.")
+    console.log("Connection to database successful." + mongoose)
   }
   }); 
+
 
 app.use(express.static('public'));
 
