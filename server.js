@@ -7,7 +7,6 @@ var express = require('express'),
   setup = require('./app/appSetup');
 
   
-
  
 var username = 'tankmybank';
 var password = 'Illadelph12?';
