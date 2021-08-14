@@ -11,8 +11,8 @@ var hosts = 'iad2-c13-0.mongo.objectrocket.com:54914,iad2-c13-1.mongo.objectrock
 var database = 'natsite-prod';
 var options = '?replicaSet=3e22ce01a19f48e981e876585c12fe2f&ssl=true';
 //let options = {useMongoClient:true, autoIndex:false, autoReconnect:true, promiseLibrary:global.Promise};
-
-var connectionString = 'mongodb://' + username + ':' + encodeURIComponent(password) + '@' + hosts + '/' + database + options;
+//'mongodb://' + username + ':' + encodeURIComponent(password) + '@' + hosts + '/' + database + options;
+var connectionString = process.env.MONGODB_URI || 'mongodb://localhost/Tododb';
 
 // mongoose.connect('mongodb://localhost/Tododb',() =>{
 //     console.log("Connection to database successful.")
