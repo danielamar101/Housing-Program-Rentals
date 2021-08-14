@@ -2,23 +2,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-console.log('Mongoose: ' + mongoose);
-console.log(mongoose);
 
-const UserSchema = new Schema({
+
+var UserSchema = new Schema({
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
 });
-
-// let options = {useMongoClient:true,
-//     autoIndex:true, autoReconnect:true, retryWrites:true};  
-// var username = 'tankmybank';
-// var password = 'Illadelph12?';
-// var hosts = 'iad2-c12-2.mongo.objectrocket.com:54917,iad2-c12-1.mongo.objectrocket.com:54917,iad2-c12-0.mongo.objectrocket.com:54917';
-// var database = 'natsite-prod';
-// //var options = '?replicaSet=4db59e42f2474892959d444975be539e';
-// var connectionString = 'mongodb://' + username + ':' + encodeURIComponent(password) + '@' + hosts + '/' + database + options;
-// var connection = mongoose.createConnection(connectionString,options);
 
 const ListingSchema = new Schema({
     address: {type: String, unique: true, required: true},
@@ -42,5 +31,44 @@ mongoose.model('Invite',InviteSchema);
 mongoose.model('User', UserSchema);
 mongoose.model('Listing',ListingSchema);
 
+
+const Invite = mongoose.model('Invite');
+
+var oneThing = new Invite({invite_code: 'natalie'}).save().then(() => {
+    console.log("Saved Invite successfully")
+}).catch((error) => {
+    console.log("Error saving invite..");
+});
+
+const User = mongoose.model('User');
+
+var twoThing = new User({
+    email: 'test',
+    password: 'test12'
+}).save().then(() => {
+    console.log("Saved User successfully")
+}).catch((error) => {
+    console.log("Error saving user..");
+});
+
+const Listing = mongoose.model('Listing');
+
+var threeThing = new Listing({
+    address: '12 Gutheil Lane',
+    borough: 'Great Neck',
+    zip: '11024',
+    bedroom: '1',
+    bathroom: '1',
+    type: '1',
+    apt_num: '1',
+    ask_price: '69',
+    amenities: 'All',
+    //path to images of listing
+    images: ['/This/Is/A/Test']
+}).save().then(() => {
+    console.log("Saved listing successfully")
+}).catch((error) => {
+    console.log("Error saving listing..");
+});
 
 
