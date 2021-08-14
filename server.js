@@ -1,4 +1,4 @@
-require('api/models/appModel')
+require('./api/models/appModel')
 var express = require('express'),
   app = express(),
   port = process.env.PORT || 3000,
