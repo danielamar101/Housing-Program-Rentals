@@ -438,7 +438,6 @@
         imgSrc.push(ref.currentSrc);
         ref.addEventListener('click', function(){
           best.classList.add('work-modal--show');
-          console.log(imgSrc[index]);
           main.style.backgroundImage = `url( ${imgSrc[index]} )`;
           currentIndex = index
         });
@@ -486,7 +485,7 @@
         address: fullAddr,
       }, function (results, status) {
           if (status === 'OK') {
-            console.log(results);
+            console.log("Found an address");
             var result = results[0];
 
             var coords = { 
@@ -505,7 +504,7 @@
           }
           else {
             //TODO: Send email here instead to alert of failure?
-            //alert('Geocode was not successful for the following reason: ' + status);
+            console.log(('Geocode was not successful for the following reason: ' + status));
           }
       });
 
