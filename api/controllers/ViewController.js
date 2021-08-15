@@ -1,11 +1,11 @@
 "use strict";
-var mongoose = require("mongoose");
-var Listing = mongoose.model('Listing');
+const mongoose = require("mongoose");
+const Listing = mongoose.model('Listing');
 const nodemailer = require("nodemailer");
 const aws = require('aws-sdk');
-require('dotenv').config();
-var randomstring = require("randomstring");
+const randomstring = require("randomstring");
 const path = require('path');
+require('dotenv').config();
 
 aws.config.region = 'us-east-1';
 
