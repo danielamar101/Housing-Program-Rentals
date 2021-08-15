@@ -2,6 +2,12 @@
 var mongoose = require("mongoose");
 var Listing = mongoose.model('Listing');
 const nodemailer = require("nodemailer");
+const aws = require('aws-sdk');
+require('dotenv').config();
+var randomstring = require("randomstring");
+const path = require('path');
+
+aws.config.region = 'us-east-1';
 
 //GET - view home page
 exports.showHome = function (req, res) {
@@ -237,4 +243,38 @@ exports.delete_listing = function(req,res){
       console.log(`Error deleting listing:${error}`);
   })
 
+}
+
+exports.sendSigning = function(req,res){
+  console.log("Routed to sendSigning")
+  const s3 = new aws.S3();
+  const S3_BUCKET = process.env.S3_BUCKET_NAME;
+  const fileName = req.query['file-name'];
+  const fileExt = path.extname(fileName);
+  const fileType = req.query['file-type'];
+  console.log(`Trying to upload file: ${fileName}.${fileType}`)
+
+  const newFileName = `${randomstring.generate(7)}.${fileExt}`;
+
+  const s3Params = {
+    Bucket: S3_BUCKET,
+    Key: `public/images/${newFileName}`,
+    Expires: 60,
+    ContentType: fileType,
+    ACL: 'public-read'
+  };
+
+  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    if(err){
+      console.log("Error getting signed URL: Server side" + err);
+      return res.end();
+    }
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/public/images/${newFileName}`
+    };
+
+    res.write(JSON.stringify(returnData));
+    res.end();
+  });
 }

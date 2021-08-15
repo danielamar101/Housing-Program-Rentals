@@ -7,11 +7,7 @@
   <body>
     <p><a href="/view_portal">Back</a></p>
     <h1 class="h1_tag">Create Listing</h1>
-    <form
-      enctype="multipart/form-data"
-      action="/create_listing"
-      method="POST"
-    >
+    <form enctype="multipart/form-data" action="/create_listing" method="POST">
       <div class="form-element">
         <label for="address">Address</label>
         <input
@@ -108,6 +104,7 @@
         <input
           type="file"
           id="img"
+          class="allFiles"
           name="img"
           accept="image/*"
           onchange="(loadFile(event))"
@@ -116,10 +113,10 @@
       </div>
 
       <div class="form-element">
-      <button type="submit" class="btn btn-primary btn-block">
-        Create Listing
-      </button>
-    </div>
+        <button type="submit" class="btn btn-primary btn-block">
+          Create Listing
+        </button>
+      </div>
     </form>
 
     <h2 class="h2-info">Preview of images will appear below here</h2>
@@ -155,32 +152,80 @@
 </html>
 
 <script>
-
-  var loadFile = function (event) {
-
-    if(event.target.files.length > 8){
-    alert("Maximum amount of pictures is 8");
-    location.reload();
-    return false;
+  function getSignedRequest(file, index) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          uploadFile(file, index, response.signedRequest, response.url);
+        } else {
+          alert("Could not get signed URL.");
+          console.log("Could not get signed url.")
+        }
+      }
+    };
+    xhr.send();
   }
 
-
-    if (event.target.files !== undefined) {
-      for (let i = 0; i < event.target.files.length; i++) {
-
-        var image = document.getElementById(`output${i + 1}`);
-        image.src = URL.createObjectURL(event.target.files[i]);
-        image.style.width = 200;
-        image.style.height = 200;
-
+  function uploadFile(file, index, signedRequest, url) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("PUT", signedRequest);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          console.log("File uploaded successfully");
+          var image = document.getElementById(`output${index}`);
+          image.src = url;
+          image.style.width = 200;
+          image.style.height = 200;
+        } else {
+          alert("Could not upload file.");
+          console.log("Error uploading file.")
+        }
       }
+    };
+    xhr.send(file);
+  }
+</script>
 
-      //once their html is generated, set the visibily
-      document.getElementsByClassName('h2-info')[0].style.visibility = 'hidden';
-      document.getElementsByClassName('grid-container')[0].style.visibility = 'visible';
-      document.getElementsByClassName('h2-preview')[0].style.visibility = 'visible';
-
+<script>
+  var loadFile = function (event) {
+    //reload page if over 8 images chosen
+    if (event.target.files.length > 8) {
+      alert("Maximum amount of pictures is 8");
+      location.reload();
+      return false;
     }
-  };
 
+    const files = document.getElementById("img").files;
+
+    if (files == null) {
+      console.log("No files selected.");
+    } else {
+      if (files.length !== undefined && files.length > 1) {
+        files.forEach((file, index) => {
+          getSignedRequest(file, index);
+        });
+      } else {
+          getSignedRequest(files[0], 1);
+      }
+    }
+
+    // if (event.target.files !== undefined) {
+    //   for (let i = 0; i < event.target.files.length; i++) {
+    //     var image = document.getElementById(`output${i + 1}`);
+    //     image.src = URL.createObjectURL(event.target.files[i]);
+    //     image.style.width = 200;
+    //     image.style.height = 200;
+    //   }
+
+    //once their html is generated, set the visibily
+    document.getElementsByClassName("h2-info")[0].style.visibility = "hidden";
+    document.getElementsByClassName("grid-container")[0].style.visibility =
+      "visible";
+    document.getElementsByClassName("h2-preview")[0].style.visibility =
+      "visible";
+  };
 </script>
