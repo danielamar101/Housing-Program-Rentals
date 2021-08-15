@@ -11,7 +11,6 @@ const database = "natsite";
 const options = "?retryWrites=true&w=majority";
 const dev = false;
 
-console.log(port);
 //let options = {useMongoClient:true, autoIndex:false, autoReconnect:true, promiseLibrary:global.Promise};
 //'mongodb://' + username + ':' + encodeURIComponent(password) + '@' + hosts + '/' + database + options;
 
@@ -24,8 +23,6 @@ async function main() {
   try {
     const con = await mongoose.connect(connectionString);
     var names = [];
-
-    console.log("Got here");
 
     require("./api/models/appModel");
 
@@ -53,7 +50,7 @@ async function main() {
     });
     console.log(con);
   } catch (error) {
-    console.log("Connection error " + error);
+    console.log("Error " + error);
   }
 }
 

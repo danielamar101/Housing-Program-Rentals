@@ -1,10 +1,8 @@
 "use strict";
 var mongoose = require("mongoose");
-var User = mongoose.model('User');
-var Invite = mongoose.model('Invite');
+var User = mongoose.model("User");
+var Invite = mongoose.model("Invite");
 var bcrypt = require("bcrypt");
-
-
 
 //Debug - remove later
 exports.list_all_users = function (req, res) {
@@ -18,50 +16,39 @@ exports.list_all_users = function (req, res) {
   });
 };
 
-exports.view_logout = function(req,res){
-
-  res.render("user/logout",{
-    da_user: "Penis"
+exports.view_logout = function (req, res) {
+  res.render("user/logout", {
+    da_user: "Penis",
   });
+};
 
-}
-
-exports.logout = function(req,res){
-
-
-  req.session.destroy((err)=>{
+exports.logout = function (req, res) {
+  req.session.destroy((err) => {
     console.log("Error destroying session.");
     res.sendStatus(501);
   });
   console.log(req.session);
   res.redirect("/view_logout");
-}
+};
 //GET - See signup page
 exports.view_signup = function (req, res) {
   res.render("user/signup");
 };
 
-
-
 //GET - See login page
 exports.view_login = function (req, res) {
-
   res.render("user/login");
-  
 };
-exports.view_portal = function (req, res){
-
+exports.view_portal = function (req, res) {
   res.render("admin/portal");
-}
-// function findUser({aUsername, aPassword}, queryString, callback){
+};
 
-// }
 //POST - after authenticating
 exports.portal = function (req, res) {
   req.session.loggedIn = true;
   req.session.username = res.locals.username;
   console.log(req.session);
-  res.redirect('/view_portal');
+  res.redirect("/view_portal");
 };
 
 //POST - Signup code
@@ -86,7 +73,6 @@ exports.signup = function (req, res) {
 
       //This means there is a correct invite code
       if (results != undefined && Object.keys(results).length > 0) {
-
         if (aPassword != aPasswerd) {
           console.log("Passwords don't match!");
           res.redirect("user/signup");
@@ -118,7 +104,7 @@ exports.signup = function (req, res) {
             })
             .catch((error) => {
               console.log("Error creating new user", error);
-              res.render('user/error');
+              res.render("user/error");
             });
         });
       } else {
