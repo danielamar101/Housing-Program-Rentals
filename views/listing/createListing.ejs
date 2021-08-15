@@ -159,6 +159,7 @@
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           const response = JSON.parse(xhr.responseText);
+
           uploadFile(file, index, response.signedRequest, response.url);
         } else {
           alert("Could not get signed URL.");
@@ -175,8 +176,8 @@
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          console.log("File uploaded successfully");
-          var image = document.getElementById(`output${index}`);
+          console.log("File uploaded successfully. Name: " + url);
+          var image = document.getElementById(`output${index+1}`);
           image.src = url;
           image.style.width = 200;
           image.style.height = 200;
@@ -204,13 +205,12 @@
     if (files == null) {
       console.log("No files selected.");
     } else {
-      if (files.length !== undefined && files.length > 1) {
-        files.forEach((file, index) => {
-          getSignedRequest(file, index);
-        });
-      } else {
-          getSignedRequest(files[0], 1);
-      }
+      if (files.length !== undefined) {
+        for(var i = 0; i < Object.keys(files).length; i++){
+          var currentKey = Object.keys(files)[i];
+          getSignedRequest(files[currentKey], i);
+        }
+      } 
     }
 
     // if (event.target.files !== undefined) {
