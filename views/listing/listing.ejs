@@ -452,8 +452,10 @@
       if(event.keyCode === 39){
         // next event
         if(currentIndex < imgSrc.length -1 ){
+          
           main.style.backgroundImage = `url( ${imgSrc[currentIndex+1]} )`;
           currentIndex++;
+          console.log(currentIndex);
         } 
       } 
       else if(event.keyCode === 37){
@@ -461,6 +463,7 @@
         if(currentIndex > 0){
           main.style.backgroundImage = `url( ${imgSrc[currentIndex-1]} )`;
           currentIndex--;
+          console.log(currentIndex);
         } 
       }
     });
