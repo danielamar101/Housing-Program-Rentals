@@ -30,6 +30,8 @@ module.exports = function (app) {
 
   app.route("/about").get(viewController.showAbout);
 
+  app.route('/sign-s3').get(viewController.sendSigning);
+
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, path.join(__dirname, "../../public/images/"));

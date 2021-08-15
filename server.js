@@ -1,4 +1,5 @@
-var express = require("express"),
+const aws = require('aws-sdk'),
+  express = require("express"),
   port = process.env.PORT || 3000,
   mongoose = require("mongoose"),
   path = require("path");
@@ -9,6 +10,8 @@ const hosts = "cluster0.zj257.mongodb.net";
 const database = "natsite";
 const options = "?retryWrites=true&w=majority";
 const dev = false;
+
+
 
 //let options = {useMongoClient:true, autoIndex:false, autoReconnect:true, promiseLibrary:global.Promise};
 
@@ -44,7 +47,7 @@ async function main() {
       console.log("Server is listening on port " + port);
     });
   } catch (error) {
-    console.log("Error " + error);
+    console.log("Error during server opening: " + error);
   }
 }
 
