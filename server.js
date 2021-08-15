@@ -4,30 +4,63 @@ var express = require('express'),
   mongoose = require('mongoose'),
   path = require('path');
 
+  const username = 'banktanker';
+  const password = 'dESAPyzzvGRIEgiX';
+  const hosts = 'cluster0.zj257.mongodb.net';
+  const database = 'natsite';
+  const options = '?retryWrites=true&w=majority';
+  const dev = false;
 
-var username = 'tankmybank';
-var password = 'Illadelph12?';
-var hosts = 'iad2-c13-0.mongo.objectrocket.com:54914,iad2-c13-1.mongo.objectrocket.com:54914,iad2-c13-2.mongo.objectrocket.com:54914';
-var database = 'natsite-prod';
-var options = '?replicaSet=3e22ce01a19f48e981e876585c12fe2f&ssl=true';
 //let options = {useMongoClient:true, autoIndex:false, autoReconnect:true, promiseLibrary:global.Promise};
 //'mongodb://' + username + ':' + encodeURIComponent(password) + '@' + hosts + '/' + database + options;
+
+
 var connectionString = process.env.MONGODB_URI || 'mongodb://localhost/Tododb';
+
+async function main() {
+  //const connectionString = 'mongodb+srv://' + username + ':' + encodeURIComponent(password) + '@' + hosts + '/' + database + options;
+  // const client = new MongoClient(connectionString);
+
+  try{ 
+    const con = await mongoose.connect(connectionString);
+    var names = [];
+    
+
+    console.log("Got here");
+
+    const InviteSchema = new Schema({
+        invite_code: {type: String, required: true},
+    });
+    
+    mongoose.model('Invite',InviteSchema);
+
+    const Invite = mongoose.model('Invite');
+
+    var oneThing = new Invite({invite_code: 'test'}).save().then(() => {
+        console.log("Saved listing successfully")
+    }).catch((error) => {
+        console.log("Error saving listing..");
+    });
+    console.log(con);
+
+} catch(error){
+    console.log("Connection error " + error);
+}
 
 // mongoose.connect('mongodb://localhost/Tododb',() =>{
 //     console.log("Connection to database successful.")
 // }); 
 
-mongoose.connect(connectionString,(err,db) =>{
-  if (db) {
-    db.close();
-  }
-  if (err) {
-    console.log('Error: ', err);
-  } else {
-    console.log("Connection to database successful." + mongoose)
-  }
-  }); 
+// mongoose.connect(connectionString,(err,db) =>{
+//   if (db) {
+//     db.close();
+//   }
+//   if (err) {
+//     console.log('Error: ', err);
+//   } else {
+//     console.log("Connection to database successful." + mongoose)
+//   }
+//   }); 
 
 
 require('./api/models/appModel');
