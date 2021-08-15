@@ -1,8 +1,6 @@
 "use strict";
 var mongoose = require("mongoose");
 var Listing = mongoose.model('Listing');
-var path = require("path");
-const fs = require("fs");
 const nodemailer = require("nodemailer");
 
 //GET - view home page

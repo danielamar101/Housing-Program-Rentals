@@ -1,8 +1,7 @@
 var express = require("express"),
   port = process.env.PORT || 3000,
   mongoose = require("mongoose"),
-  path = require("path")
-  ;
+  path = require("path");
 
 const username = "banktanker";
 const password = "dESAPyzzvGRIEgiX";
@@ -12,18 +11,15 @@ const options = "?retryWrites=true&w=majority";
 const dev = false;
 
 //let options = {useMongoClient:true, autoIndex:false, autoReconnect:true, promiseLibrary:global.Promise};
-//'mongodb://' + username + ':' + encodeURIComponent(password) + '@' + hosts + '/' + database + options;
 
 var connectionString = process.env.MONGODB_URI || "mongodb://localhost/Tododb";
 
 async function main() {
-  //const connectionString = 'mongodb+srv://' + username + ':' + encodeURIComponent(password) + '@' + hosts + '/' + database + options;
-  // const client = new MongoClient(connectionString);
 
   try {
     const con = await mongoose.connect(connectionString);
-    var names = [];
 
+    //Initialize models
     require("./api/models/appModel");
 
     var app = express();
@@ -40,7 +36,6 @@ async function main() {
     //Error Handling
     app.use(function (req, res) {
       res.status(404).sendFile(path.join(__dirname, "/views/error.html"));
-      //console.log(res);
       console.log("Cannot find page.");
     });
 
@@ -48,7 +43,6 @@ async function main() {
     app.listen(port, () => {
       console.log("Server is listening on port " + port);
     });
-    console.log(con);
   } catch (error) {
     console.log("Error " + error);
   }

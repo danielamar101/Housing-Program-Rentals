@@ -10,8 +10,6 @@ module.exports = function(app){
 
     //EJS
     app.set('view engine','ejs');
-    //app.use(expressEjsLayout);
-    //app.set('views', path.join(__dirname, 'views'));
 
     //Bootstrap
     app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
@@ -22,7 +20,6 @@ module.exports = function(app){
     next()
     })
 
-
     app.use(session({secret:'Keep it secret'
     ,name:'uniqueSessionID'
     ,saveUninitialized:true}));
@@ -30,7 +27,6 @@ module.exports = function(app){
     //Body Parser
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
-
 
     //Use public resources
     app.use(express.static(path.join(__dirname,'public')));

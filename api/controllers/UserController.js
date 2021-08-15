@@ -1,8 +1,9 @@
 "use strict";
 var mongoose = require("mongoose");
+var bcrypt = require("bcrypt");
+
 var User = mongoose.model("User");
 var Invite = mongoose.model("Invite");
-var bcrypt = require("bcrypt");
 
 //Debug - remove later
 exports.list_all_users = function (req, res) {
@@ -18,7 +19,7 @@ exports.list_all_users = function (req, res) {
 
 exports.view_logout = function (req, res) {
   res.render("user/logout", {
-    da_user: "Penis",
+    da_user: "Logged out",
   });
 };
 
@@ -47,7 +48,6 @@ exports.view_portal = function (req, res) {
 exports.portal = function (req, res) {
   req.session.loggedIn = true;
   req.session.username = res.locals.username;
-  console.log(req.session);
   res.redirect("/view_portal");
 };
 
