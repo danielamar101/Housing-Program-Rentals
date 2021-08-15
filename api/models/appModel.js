@@ -37,7 +37,7 @@ const Invite = mongoose.model('Invite');
 var oneThing = new Invite({invite_code: 'natalie'}).save().then(() => {
     console.log("Saved Invite successfully")
 }).catch((error) => {
-    console.log("Error saving invite..");
+    console.log("Error saving invite.." + error);
 });
 
 const User = mongoose.model('User');
@@ -48,7 +48,7 @@ var twoThing = new User({
 }).save().then(() => {
     console.log("Saved User successfully")
 }).catch((error) => {
-    console.log("Error saving user..");
+    console.log("Error saving user.." + error);
 });
 
 const Listing = mongoose.model('Listing');
@@ -68,7 +68,7 @@ var threeThing = new Listing({
 }).save().then(() => {
     console.log("Saved listing successfully")
 }).catch((error) => {
-    console.log("Error saving listing..");
+    console.log("Error saving listing.." + error);
 });
 
 

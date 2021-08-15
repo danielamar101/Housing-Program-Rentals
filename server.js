@@ -1,7 +1,8 @@
 var express = require("express"),
   port = process.env.PORT || 3000,
   mongoose = require("mongoose"),
-  path = require("path");
+  path = require("path")
+  ;
 
 const username = "banktanker";
 const password = "dESAPyzzvGRIEgiX";
@@ -10,6 +11,7 @@ const database = "natsite";
 const options = "?retryWrites=true&w=majority";
 const dev = false;
 
+console.log(port);
 //let options = {useMongoClient:true, autoIndex:false, autoReconnect:true, promiseLibrary:global.Promise};
 //'mongodb://' + username + ':' + encodeURIComponent(password) + '@' + hosts + '/' + database + options;
 
@@ -24,23 +26,6 @@ async function main() {
     var names = [];
 
     console.log("Got here");
-
-    const InviteSchema = new Schema({
-      invite_code: { type: String, required: true },
-    });
-
-    mongoose.model("Invite", InviteSchema);
-
-    const Invite = mongoose.model("Invite");
-
-    var oneThing = new Invite({ invite_code: "test" })
-      .save()
-      .then(() => {
-        console.log("Saved listing successfully");
-      })
-      .catch((error) => {
-        console.log("Error saving listing..");
-      });
 
     require("./api/models/appModel");
 
