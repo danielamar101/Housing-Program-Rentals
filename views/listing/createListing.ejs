@@ -112,6 +112,9 @@
         />
       </div>
 
+      <input type='hidden' id='renamedFiles' value= '1' name= "renamedFiles"> </input>
+
+
       <div class="form-element">
         <button type="submit" class="btn btn-primary btn-block">
           Create Listing
@@ -152,47 +155,62 @@
 </html>
 
 <script>
-  function getSignedRequest(file, index) {
+
+var newFileNames = [];
+var saveNewNames = async (newName) => {
+    console.log('this ran');
+    newFileNames.push(newName);
+    document.getElementById('renamedFiles').value = newFileNames.toString(); 
+
+  } 
+
+
+
+   async function getSignedRequest(file, index,callback) {
     const xhr = new XMLHttpRequest();
+    var toReturn = '';
     xhr.open("GET", `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
-    xhr.onreadystatechange = () => {
+    xhr.onreadystatechange = async () => {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           const response = JSON.parse(xhr.responseText);
-
-          uploadFile(file, index, response.signedRequest, response.url);
+          await callback(response.url);
+          await uploadFile(file, index, response.signedRequest, response.url);
+          
         } else {
           alert("Could not get signed URL.");
-          console.log("Could not get signed url.")
+          console.log("Could not get signed url.");
         }
       }
     };
-    xhr.send();
+     await xhr.send();
+
+    return xhr;
   }
 
-  function uploadFile(file, index, signedRequest, url) {
+async function uploadFile(file, index, signedRequest, url) {
     const xhr = new XMLHttpRequest();
     xhr.open("PUT", signedRequest);
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           console.log("File uploaded successfully. Name: " + url);
-          var image = document.getElementById(`output${index+1}`);
+          var image = document.getElementById(`output${index + 1}`);
           image.src = url;
           image.style.width = 200;
           image.style.height = 200;
         } else {
           alert("Could not upload file.");
-          console.log("Error uploading file.")
+          console.log("Error uploading file.");
         }
       }
     };
-    xhr.send(file);
-  }
-</script>
 
-<script>
-  var loadFile = function (event) {
+    await xhr.send(file);
+
+  }
+
+  var loadFile = async function (event) {
     //reload page if over 8 images chosen
     if (event.target.files.length > 8) {
       alert("Maximum amount of pictures is 8");
@@ -200,32 +218,41 @@
       return false;
     }
 
-    const files = document.getElementById("img").files;
+    await uploadAllFiles();
 
-    if (files == null) {
+    await updatePageInfo();
+
+  };
+
+
+
+  const uploadAllFiles = async ()=>{
+      const files = document.getElementById("img").files;
+    
+      if (files == null) {
       console.log("No files selected.");
-    } else {
+      } else {
       if (files.length !== undefined) {
-        for(var i = 0; i < Object.keys(files).length; i++){
+        for (var i = 0; i < Object.keys(files).length; i++) {
           var currentKey = Object.keys(files)[i];
-          getSignedRequest(files[currentKey], i);
+          getSignedRequest(files[currentKey], i,saveNewNames);
         }
-      } 
+      }
     }
 
-    // if (event.target.files !== undefined) {
-    //   for (let i = 0; i < event.target.files.length; i++) {
-    //     var image = document.getElementById(`output${i + 1}`);
-    //     image.src = URL.createObjectURL(event.target.files[i]);
-    //     image.style.width = 200;
-    //     image.style.height = 200;
-    //   }
+  }
+
+  const updatePageInfo = async () => {
 
     //once their html is generated, set the visibily
     document.getElementsByClassName("h2-info")[0].style.visibility = "hidden";
     document.getElementsByClassName("grid-container")[0].style.visibility =
-      "visible";
+    "visible";
     document.getElementsByClassName("h2-preview")[0].style.visibility =
-      "visible";
-  };
+    "visible";
+
+
+    }
+
+
 </script>
