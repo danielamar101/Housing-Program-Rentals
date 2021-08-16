@@ -32,6 +32,7 @@ exports.sendContactRequest = async function(req,res){
   console.log("Sending an email..");
   let testAccount = await nodemailer.createTestAccount();
 
+  console.log(req.name);
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     host: "smtp.ethereal.email",
@@ -127,7 +128,8 @@ exports.show_a_listing = function (req, res) {
 
       for (let i = 0; i < listing.images.length; i++) {
         //TODO: Find a better method than this lol
-        listing.images[i] = `src=../../${listing.images[i]}`;
+        var encodedPic = encodeURI(listing.images[i]);
+        listing.images[i] = `src=${encodedPic}`;
       }
       console.log(`Sending listing with:  \n${listing}`);
 
@@ -177,19 +179,12 @@ exports.deleteAllListings = function (req, res) {
 //POST - Create listing code
 exports.createListing = function (req, res) {
   console.log("Routed to actual listing creation");
-  console.log(req);
   //List of files
-  var files = req.files;
-
+  var files = req.body.renamedFiles;
   //Create dir list
-  var image_dir_list = [];
-  files.forEach((file) => {
-    //Converts absolute path to a relative one
-    var relative_path = file.path.indexOf("images");
-    file.path = file.path.substring(relative_path);
-    image_dir_list.push(file.path);
-  });
+  var image_urls = files.split(',');
 
+console.log(image_urls);
   var listing = new Listing({
     address: req.body.address,
     borough: req.body.borough,
@@ -201,7 +196,8 @@ exports.createListing = function (req, res) {
     ask_price: req.body.ask_price,
     amenities: req.body.amenities,
     //path to images of listing
-    images: image_dir_list,
+    images: image_urls,
+
   });
 
   listing
@@ -245,6 +241,7 @@ exports.delete_listing = function(req,res){
 
 }
 
+//For file upload to s3
 exports.sendSigning = function(req,res){
   console.log("Routed to sendSigning")
   const s3 = new aws.S3();
@@ -271,7 +268,8 @@ exports.sendSigning = function(req,res){
     }
     const returnData = {
       signedRequest: data,
-      url: `https://${S3_BUCKET}.s3.amazonaws.com/public/images/${newFileName}`
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/public/images/${newFileName}`,
+      newFileName : newFileName
     };
 
     res.write(JSON.stringify(returnData));
