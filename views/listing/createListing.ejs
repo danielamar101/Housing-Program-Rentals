@@ -8,6 +8,8 @@
     <p><a href="/view_portal">Back</a></p>
     <h1 class="h1_tag">Create Listing</h1>
     <form enctype="multipart/form-data" action="/create_listing" method="POST">
+      <label>Format for address is (Address), (Borough), NY, (Zip code)</label>
+    </br>
       <div class="form-element">
         <label for="address">Address</label>
         <input
@@ -85,9 +87,10 @@
         <input
           type="ask_price"
           name="ask_price"
-          placeholder="Bathroom"
+          placeholder="Asking Price"
           value="<%= typeof ask_price != 'undefined' ? String(ask_price) : '' %>"
         />
+        <label>/month</label>
       </div>
 
       <div class="form-element">
@@ -116,14 +119,16 @@
 
 
       <div class="form-element">
-        <button type="submit" class="btn btn-primary btn-block">
+        <button id='submitbtn' type="submit" class="btn btn-primary btn-block">
           Create Listing
         </button>
+        <label id='upload-label' style='visibility: hidden'>Uploading...</label>
       </div>
     </form>
-
-    <h2 class="h2-info">Preview of images will appear below here</h2>
+    
+    <h2 class="h2-info">Preview of images will appear below here.</h2>
     <h2 class="h2-preview">Preview of images:</h2>
+    <h4>Do not click Create Listing until all images are displayed below</h4>
 
     <div class="grid-container">
       <div class="grid-item">
@@ -218,6 +223,8 @@ async function uploadFile(file, index, signedRequest, url) {
       return false;
     }
 
+    document.getElementById('submitbtn').disabled = true
+    document.getElementById('upload-label').style = 'visibility: visible';
     await uploadAllFiles();
 
     await updatePageInfo();
@@ -235,12 +242,16 @@ async function uploadFile(file, index, signedRequest, url) {
       if (files.length !== undefined) {
         for (var i = 0; i < Object.keys(files).length; i++) {
           var currentKey = Object.keys(files)[i];
-          getSignedRequest(files[currentKey], i,saveNewNames);
+          await getSignedRequest(files[currentKey], i,saveNewNames);
         }
       }
     }
 
   }
+
+  function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
   const updatePageInfo = async () => {
 
@@ -251,6 +262,15 @@ async function uploadFile(file, index, signedRequest, url) {
     document.getElementsByClassName("h2-preview")[0].style.visibility =
     "visible";
 
+    if(document.getElementById("img").files.length > 4){
+    await sleep(15000);
+    } else{
+      await sleep(10000)
+    }
+
+    console.log('went');
+     document.getElementById('submitbtn').disabled = false
+     document.getElementById('upload-label').style = 'visibility: hidden';
 
     }
 
