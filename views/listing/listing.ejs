@@ -438,8 +438,10 @@
         imgSrc.push(ref.currentSrc);
         ref.addEventListener('click', function(){
           best.classList.add('work-modal--show');
+          console.log("Before add url():" + imgSrc[index]);
           main.style.backgroundImage = `url( ${imgSrc[index]} )`;
           currentIndex = index
+          console.log(index)
         });
 
     })
