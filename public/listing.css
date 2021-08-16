@@ -797,11 +797,11 @@ img {
 
 .work-modal {
   display: none;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .work-modal--show {
   position: fixed;
-  background: rgba(0, 0, 0, 0.5) cover;
   top: 0;
   left: 0;
   bottom: 0;
@@ -816,6 +816,7 @@ img {
   width: 100%;
   border: 0.5rem solid var(--yellow);
   border-radius: 0.4rem;
+  background-repeat: no-repeat;
 }
 @media screen and (min-width: 768px) {
   .work-modal__item {

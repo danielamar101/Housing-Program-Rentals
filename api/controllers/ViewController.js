@@ -184,7 +184,6 @@ exports.createListing = function (req, res) {
   //Create dir list
   var image_urls = files.split(',');
 
-console.log(image_urls);
   var listing = new Listing({
     address: req.body.address,
     borough: req.body.borough,
@@ -222,9 +221,7 @@ exports.view_logout = function (req, res) {
 };
 
 exports.view_edit_listings = function (req, res) {
-
   renderPageWithAllListings(req,res,"listing/edit_listings",['AllListings','id_list'],'edit');
-
 };
 exports.view_delete_listings = function (req, res) {
   renderPageWithAllListings(req,res,"listing/delete_listings",['AllListings','id_list'],'delete');// res.render("listing/delete_view"{
@@ -251,6 +248,7 @@ exports.sendSigning = function(req,res){
   const fileType = req.query['file-type'];
   console.log(`Trying to upload file: ${fileName}.${fileType}`)
 
+  //generate new file name
   const newFileName = `${randomstring.generate(7)}.${fileExt}`;
 
   const s3Params = {
@@ -266,6 +264,7 @@ exports.sendSigning = function(req,res){
       console.log("Error getting signed URL: Server side" + err);
       return res.end();
     }
+    //return request
     const returnData = {
       signedRequest: data,
       url: `https://${S3_BUCKET}.s3.amazonaws.com/public/images/${newFileName}`,
