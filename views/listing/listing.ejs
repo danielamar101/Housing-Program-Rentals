@@ -429,17 +429,19 @@
     let best = document.querySelector('.work-modal');
     let main = document.querySelector('.work-modal__item');
 
-
+    console.log(images)
+    console.log(images.currentSrc)
     let closeButton = document.getElementById("closee");
     let currentIndex = -1;
     let imgSrc = [];
 
     images.forEach(function(ref,index) {
+        console.log("Image reference is: " + ref.currentSrc);
         imgSrc.push(ref.currentSrc);
         ref.addEventListener('click', function(){
           best.classList.add('work-modal--show');
-          console.log("Before add url():" + imgSrc[index]);
-          main.style.backgroundImage = `url( ${imgSrc[index]} )`;
+          console.log("Before add url():" + ref.currentSrc);
+          main.style.backgroundImage = `url( ${ref.currentSrc} )`;
           currentIndex = index
           console.log(index)
         });
