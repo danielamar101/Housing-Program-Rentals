@@ -7,6 +7,6 @@ exports.checkSignIn = function (req, res,next){
     } else {
        var err = new Error("Not logged in!");
        console.log(req.session.user);
-       res.send(401);  //Error, trying to access unauthorized page!
+       res.sendStatus(401);  //Error, trying to access unauthorized page!
     }
  };

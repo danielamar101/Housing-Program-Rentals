@@ -352,8 +352,8 @@
                 <h6 id='aptnum' class="u-custom-font u-font-montserrat u-text u-text-17">
                   <%= a_listing.apt_num %>
                 </h6>
-                <% for (var i = 0; i < a_listing.images.length; i++) { %> 
-                  <% if(a_listing.images[i] !== undefined){ %>
+                <% if(a_listing.images !== undefined && a_listing.images[0] != 'src=1') { for (var i = 0; i < a_listing.images.length; i++) { %> 
+
 
                 <img
                   data-enlargeable
@@ -368,22 +368,8 @@
                   "
                   <%=a_listing.images[i]%>
                 alt="" data-image-width="1280" data-image-height="720"> 
-                <% }else {%>
+                <% }}%>
 
-                <img
-                  class="
-                    u-border-2
-                    u-border-grey-75
-                    u-image
-                    u-image-default
-                    u-image-<%=i+2%>
-                  "
-                  src="https://pixabay.com/get/g15f126dff9ecaaad61e82b104fdcf54b31722d25986ec17eb62de8027d03b36a1359cd68cefbf5e13bd3dee3829b72e101bd8cf284fdc98bb3a195fdae9f34f9_1280.jpg"
-                  alt=""
-                  data-image-width="1280"
-                  data-image-height="720"
-                />
-                <% }} %>
               </div>
             </div>
           </div>
