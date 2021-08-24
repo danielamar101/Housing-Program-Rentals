@@ -235,7 +235,7 @@
     <section class="u-clearfix u-section-3" id="sec-b5bf">
      
 
-      <% for (var i = 0; i < AllListings.length; i++) { %>
+      <% if(AllListings !== undefined) { for (var i = 0; i < AllListings.length; i++) { %>
       <div class="u-list u-list-1">
        
         <div class="u-repeater u-repeater-1">
@@ -299,7 +299,10 @@
           u-line-1
         "
       ></div>
-      <% } %>
+      <% }} else{%>
+
+        <% }%>
+
     </section>
     
     <footer class="u-align-center u-black u-clearfix u-footer u-footer" id="sec-30df"><div class="u-clearfix u-sheet u-sheet-1">

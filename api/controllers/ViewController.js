@@ -123,6 +123,7 @@ exports.show_a_listing = function (req, res) {
     if (err) {
       console.log("Error finding listing.");
       res.redirect("/listings");
+      res.end();
     }
     if (listing !== null && listing !== undefined) {
 
@@ -138,9 +139,11 @@ exports.show_a_listing = function (req, res) {
         a_listing: listing
       });
       res.end();
+      
     } else {
       console.log("Could not find listing.");
       res.redirect("/listings");
+      res.end();
     }
   });
 };
@@ -170,10 +173,7 @@ exports.deleteAllListings = function (req, res) {
     .catch(function (error) {
       console.log("ERROR DELETING ALL LISTINGS!");
     });
-  res.render("pages/index", {
-    mascots: mascots,
-    tagline: tagline,
-  });
+  res.render("pages/index");
 };
 
 //POST - Create listing code
@@ -203,31 +203,35 @@ exports.createListing = function (req, res) {
     .save()
     .then((data) => {
       console.log("Successfully created a new Listing");
-
       res.redirect(`listing/${listing.id}`);
     })
     .catch((error) => {
       console.log(`Could not create a listing: ${error}`);
 
       res.render("listing/createError");
+      res.end();
     });
 };
 
 //GET - See login page
 exports.view_logout = function (req, res) {
-
   res.render("user/logout");
   
 };
 
+//GET - see edit listings page
+//TODO: Fix implementation
 exports.view_edit_listings = function (req, res) {
   renderPageWithAllListings(req,res,"listing/edit_listings",['AllListings','id_list'],'edit');
 };
+
+//GET - view listings page in delete mode
 exports.view_delete_listings = function (req, res) {
-  renderPageWithAllListings(req,res,"listing/delete_listings",['AllListings','id_list'],'delete');// res.render("listing/delete_view"{
+  renderPageWithAllListings(req,res,"listing/delete_listings",['AllListings','id_list'],'delete');
 
 };
 
+//POST - deletes a listing
 exports.delete_listing = function(req,res){
   Listing.deleteOne({ _id: req.params.id }).then(() =>{
       console.log(`Deleted listing with id: ${req.params.id}`);
@@ -240,7 +244,8 @@ exports.delete_listing = function(req,res){
 
 //For file upload to s3
 exports.sendSigning = function(req,res){
-  console.log("Routed to sendSigning")
+  console.log("Routed to sign images page")
+
   const s3 = new aws.S3();
   const S3_BUCKET = process.env.S3_BUCKET_NAME;
   const fileName = req.query['file-name'];
