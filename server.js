@@ -4,16 +4,6 @@ const aws = require('aws-sdk'),
   mongoose = require("mongoose"),
   path = require("path");
 
-// const username = "banktanker";
-// const password = process.env.ADMIN_PASSWORD;
-// const hosts = "cluster0.zj257.mongodb.net";
-// const database = "natsite";
-// const options = "?retryWrites=true&w=majority";
-// const dev = false;
-
-
-
-
 
 //let options = {useMongoClient:true, autoIndex:false, autoReconnect:true, promiseLibrary:global.Promise};
 
