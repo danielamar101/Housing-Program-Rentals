@@ -97,7 +97,7 @@ exports.signup = function (req, res) {
               console.log("Routing to success page");
 
               //TODO: Route to admin portal ?
-              res.render("user/success", {
+              res.render("admin/portal", {
                 name: "daniel",
                 da_user: user.email,
               });
