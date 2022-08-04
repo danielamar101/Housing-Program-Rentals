@@ -11,7 +11,7 @@ This repository uses Node v16, Express and [mongoDB](https://www.mongodb.com/) t
 - Static assets stored on a public AWS S3 Bucket
 - Client-side image upload to S3, with website handling signing
 - Heroku CI/CD pipeline and auto-deploy features
-- Google Maps API in listings(off currently)
+- Google Maps API in listings
 
 
 #### Tree structure of codebase
