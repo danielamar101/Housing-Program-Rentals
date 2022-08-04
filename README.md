@@ -7,7 +7,7 @@
 
 ## Implementation details
 
-This repository uses Node v16, Express and mongoDB to host static HTML/CSS pages, hosted on Heroku. Some other cools features include:
+This repository uses Node v16, Express and mongoDB to serve static HTML/CSS pages, hosted on Heroku. Some other cools features include:
 - Static assets stored on a public AWS S3 Bucket
 - Client-side image upload to S3, with website handling signing
 - Heroku CI/CD pipeline and auto-deploy features
