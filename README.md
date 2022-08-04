@@ -1,14 +1,20 @@
 # Housing Program Rentals (Natsite)
 
 ### 
-
-### This is a repository that stores the node project for [Housing Program Rentals](https://www.housingprogramrentals.com)  
-
-
-This repository uses an express.js, node js, mongoDB stack. It is a website built for a real estate agent in New York.
+ This is a repository that stores the [Node.js](https://nodejs.org/) project for [Housing Program Rentals](https://www.housingprogramrentals.com)  
 
 
 
+## Implementation details
+
+This repository uses Node v16, Express and mongoDB stack to host static HTML/CSS pages, hosted on Heroku. Some other cools features include:
+- Static assets stored on a public AWS S3 Bucket
+- Client-side image upload to S3, with website handling signing
+- Heroku CI/CD pipeline and auto-deploy features
+- Google Maps API in listings(off currently)
+
+
+#### Tree structure of codebase
 ```
 .
 ├── api
@@ -31,3 +37,4 @@ This repository uses an express.js, node js, mongoDB stack. It is a website buil
 │   ├── ...
 ├── server.js <-- entry point
 ```
+
